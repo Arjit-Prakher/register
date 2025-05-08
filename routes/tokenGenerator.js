@@ -23,7 +23,7 @@ async function generateNewToken() {
 
         const response = await fetch('https://iam.cloud.ibm.com/identity/token#apikey', requestOptions);
         const result = await response.json();
-        console.log(result);
+        return result;
     } catch (error) {
         console.log(error);
     }
