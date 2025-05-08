@@ -22,7 +22,7 @@ router.post('/register', async function (req, res) {
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
-  const requestOptions = {
+  const requestOptions_add_doc = {
     method: "POST",
     headers: myHeaders,
     body: JSON.stringify({
@@ -31,14 +31,58 @@ router.post('/register', async function (req, res) {
     })
   };
 
+  const requestOptions_find = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({
+      "fields": ["name"],
+      "selector": {
+        "name": {
+          "$eq": req.body.username
+        }
+      }
+    })
+  };
+
   try {
-    const response = await fetch(`${base_url}/users`, requestOptions);
+    const response = await fetch(`${base_url}/users/_find`, requestOptions_find);
     const result = await response.json();
-    // console.log("Docuemnt added: ", result);
-    res.redirect("/login");
+
+    if (result.docs[0] === undefined) {
+
+      console.log("Creating new user");
+      const newResponse = await fetch(`${base_url}/users`, requestOptions_add_doc);
+      const newResult = await newResponse.json();
+      console.log("Docuemnt added: ", newResult);
+      res.redirect("/login");
+      
+    }
+    else {
+      console.log("User exists");
+      res.redirect("/login");
+    }
+
   } catch (error) {
     console.log(error);
   }
+  // let taken_name = req.body.username;
+  // console.log("Taken name: ", taken_name);
+  // console.log("From result: ", result.docs[0]);
+
+  // if(taken_name === result.docs[0]) {
+  //   console.log("Users exists");
+  // }
+  // else {
+  //   console.log("Creating new user");
+  //   const newResponse = await fetch(`${base_url}/users`, requestOptions_add_doc);
+  //   const newResult = await newResponse.json();
+  //   console.log("Docuemnt added: ", newResult);
+  //   res.redirect("/login");
+  // }
+
+  // console.log("This ran: ",result.docs[0].name);
+
+
 });
 
 
