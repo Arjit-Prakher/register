@@ -34,12 +34,18 @@ router.post('/register', async function (req, res) {
   try {
     const response = await fetch(`${base_url}/users`, requestOptions);
     const result = await response.json();
-    console.log("Docuemnt added: ", result);
+    // console.log("Docuemnt added: ", result);
     res.redirect("/login");
   } catch (error) {
     console.log(error);
   }
 });
 
+
+// Login logic
+
+// router.post('/login', async function (req, res) {
+//   
+// });
 
 module.exports = router;
