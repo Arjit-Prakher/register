@@ -54,34 +54,18 @@ router.post('/register', async function (req, res) {
       const newResponse = await fetch(`${base_url}/users`, requestOptions_add_doc);
       const newResult = await newResponse.json();
       console.log("Docuemnt added: ", newResult);
+
       res.redirect("/login");
-      
+
     }
     else {
       console.log("User exists");
-      res.redirect("/login");
+      res.send("User already exists..");
     }
 
   } catch (error) {
     console.log(error);
   }
-  // let taken_name = req.body.username;
-  // console.log("Taken name: ", taken_name);
-  // console.log("From result: ", result.docs[0]);
-
-  // if(taken_name === result.docs[0]) {
-  //   console.log("Users exists");
-  // }
-  // else {
-  //   console.log("Creating new user");
-  //   const newResponse = await fetch(`${base_url}/users`, requestOptions_add_doc);
-  //   const newResult = await newResponse.json();
-  //   console.log("Docuemnt added: ", newResult);
-  //   res.redirect("/login");
-  // }
-
-  // console.log("This ran: ",result.docs[0].name);
-
 
 });
 
