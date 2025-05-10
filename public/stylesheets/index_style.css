@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('https://th.bing.com/th/id/R.bbac07595265ac7d288ec8c8bfd13077?rik=i%2bKbRAb%2bqST%2frQ&pid=ImgRaw&r=0');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.box {
+  height: 60%;
+  width: 60%;
+  border-radius: 20px;
+  background: linear-gradient(rgba(125, 133, 220, 0.334), rgba(178, 89, 178, 0.521));
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 10px;
+  flex-direction: column;
+  backdrop-filter: blur(7px);
+}
+.box a {
+  font-size: 2vw;
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 2px;
+}

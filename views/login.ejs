@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/login_style.css">
 </head>
 
 <body>
@@ -15,21 +15,18 @@
 
             <form action="/login" method="post">
                 <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
+                   
+                    <input type="text" id="username" name="username" placeholder="Enter username" required>
                 </div>
 
-                <button type="submit">Login</button>
+                <button type="submit">Check</button>
                 <div>
                     <p>Don't have an account?</p>
-                    <a href="/" class="reg">Register</a>
+                    <a href="/register" class="reg">Register</a>
                 </div>
             </form>
         </div>
 
-        <div class="output">
-            <p id="result"></p>
-        </div>
     </div>
 
 </body>

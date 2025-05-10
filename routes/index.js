@@ -104,15 +104,10 @@ router.post('/login', async function (req, res) {
     const response = await fetch(`${base_url}/users/_find`, requestOptions_find);
     const result = await response.json();
     if (result.docs[0] === undefined) {
-
-      // res.send("User does not exists");
-      // res.redirect("/register");
       res.render('register', { message: 'User does not exisit' });
-
     }
     else {
       const username = result.docs[0].name;
-      // console.log(username);
       res.render('landing', { name: `${username}` });
     }
 
