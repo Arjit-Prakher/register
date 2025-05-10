@@ -6,6 +6,12 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
+router.get('/register', function (req, res, next) {
+  res.render('register');
+});
+router.get('/landing', function (req, res, next) {
+  res.render('landing');
+});
 router.get('/login', function (req, res) {
   res.render('login');
 });
@@ -55,7 +61,8 @@ router.post('/register', async function (req, res) {
       const newResult = await newResponse.json();
       console.log("Docuemnt added: ", newResult);
 
-      res.redirect("/login");
+
+      res.redirect("/landing");
 
     }
     else {
@@ -72,8 +79,47 @@ router.post('/register', async function (req, res) {
 
 // Login logic
 
-// router.post('/login', async function (req, res) {
-//   
-// });
+router.post('/login', async function (req, res) {
+  const base_url = "https://0917669a-e8cf-4c9d-a783-99b208116af3-bluemix.cloudantnosqldb.appdomain.cloud";
+  const token = await getToken();
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions_find = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({
+      "fields": ["name"],
+      "selector": {
+        "name": {
+          "$eq": req.body.username
+        }
+      }
+    })
+  };
+
+  try {
+    const response = await fetch(`${base_url}/users/_find`, requestOptions_find);
+    const result = await response.json();
+    if (result.docs[0] === undefined) {
+
+      // res.send("User does not exists");
+      // res.redirect("/register");
+      res.render('register', { message: 'User does not exisit' });
+
+    }
+    else {
+      const username = result.docs[0].name;
+      // console.log(username);
+      res.render('landing', { name: `${username}` });
+    }
+
+  } catch (error) {
+    console.log("Something went wrong", error);
+  }
+
+});
 
 module.exports = router;
